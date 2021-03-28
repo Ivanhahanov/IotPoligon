@@ -1,0 +1,16 @@
+---
+name: pacs
+description: Мodule for pacs emulation
+description_ru: Модуль для эмуляции системы СКУД
+protocol: mqtt
+devices:
+  reader:
+    description: rfid reader
+
+  door:
+    description: front door
+    available_commands:
+      - open
+
+  pir:
+    description: Movement detection

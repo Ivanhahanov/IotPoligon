@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  kernel:
+    build:
+      context: IotKernel
+    ports:
+    - 80:80
+    volumes:
+    - ./IotKernel:/kernel/IotKernel
+
+  pacs:
+    build:
+      context: Modules/pacs
+    depends_on:
+      - kernel
