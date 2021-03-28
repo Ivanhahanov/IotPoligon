@@ -23,6 +23,6 @@ jobs:
         pip install bandit
     - name: Create .bandit
       run: |
-        echo "[bandit]\nexcluded: IotKernel/api/tests"
+        echo "[bandit]\nexcluded: ./IotKernel/api/tests"
     - name: Bandit Testing
       run: bandit -r . -v
