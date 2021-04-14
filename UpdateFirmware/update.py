@@ -264,8 +264,7 @@ class ESPOptions:
         return result.communicate()
 
 
-def main():
-    # example
+if __name__ == '__main__':
     esp = ESPOptions("esp_test", "192.168.0.136", "esp8266:esp8266:nodemcuv2")
     build_result = esp.build()
     esp.check_external_libs()
@@ -273,17 +272,11 @@ def main():
         print("Build Successfully Completed")
     else:
         print(build_result)
-        return 1
     update_result = esp.update()
     if update_result == 0:
         print("Upgrade Successfully Completed")
     else:
         print("Update failed!")
-    return 0
-
-
-if __name__ == '__main__':
-    main()
     # esp.update()
     # ota = subprocess.Popen("./espota.py -i 192.168.0.136 -p 8266 -f bin/esp_test/esp_test.ino.bin", shell=True)
     # output, error = ota.communicate()
