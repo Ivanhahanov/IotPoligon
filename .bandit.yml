@@ -1,1 +1,5 @@
-skips: ['B404','B303','B104','B311', 'B602', 'tests']
+
+skips: ['B404','B303','B104','B311', 'B602']
+
+exclude_dirs:
+  - 'tests'
