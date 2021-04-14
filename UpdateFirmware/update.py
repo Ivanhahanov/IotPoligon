@@ -265,6 +265,7 @@ class ESPOptions:
 
 
 def main():
+    # example
     esp = ESPOptions("esp_test", "192.168.0.136", "esp8266:esp8266:nodemcuv2")
     build_result = esp.build()
     esp.check_external_libs()
