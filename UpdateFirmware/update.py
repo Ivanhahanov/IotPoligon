@@ -287,10 +287,7 @@ if __name__ == '__main__':
     converted_code = esp.convert_code()
     build_result = esp.build()
     esp.check_external_libs()
-    if converted_code is True:
-        print("Code Successfully Converted")
-    else:
-        print(converted_code)
+
     if build_result is True:
         print("Build Successfully Completed")
     else:
