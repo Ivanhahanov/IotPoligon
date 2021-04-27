@@ -222,7 +222,7 @@ class ESPOptions:
         # load library lines
         lines = {x.strip().split()[0]: x.strip().split()[1] for x in result.decode().split("\n")[1:] if x.strip()}
 
-        # compare installув and using libraries
+        # compare install and using libraries
         common_pairs = dict()
         for lib, version in lines.items():
             if lib in lines and version == libs.get(lib):
