@@ -3,13 +3,11 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 
-#ifndef STASSID
-#define STASSID "Explabs"
-#define STAPSK  "Huttka12"
-#endif
-
-const char* ssid = STASSID;
-const char* password = STAPSK;
+const char* ssid = "Explabs";
+const char* password = "Huttka12";
+const char* mqtt_server_ip = "server_ip";
+const char* mqtt_user = "mqttuser";
+const char* mqtt_password = "mqttpass";
 
 void setup(void)
 {
