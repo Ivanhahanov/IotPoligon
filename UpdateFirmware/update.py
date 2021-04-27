@@ -231,15 +231,16 @@ class ESPOptions:
         if lib_names_compare:
             raise Exception(f"Can't find name or version {', '.join([':'.join(lib) for lib in lib_names_compare])}")
 
-    def template_code(self):
+    def convert_code(self):
         env = Environment(loader=FileSystemLoader(f'raw_src/{self.code_name}'))
         template = env.get_template(f'{self.code_name}.ino')
         with open('global_values.yml', 'r') as gv:
             data = yaml.safe_load(gv.read())
         output_render = template.render(**data)
         if os.path.exists(f"./src/{self.code_name}"):
-        # print("Directory already exists!")
-        # print("Refactoring file...")
+            pass
+            # print("Directory already exists!")
+            # print("Refactoring file...")
         else:
             os.mkdir(f"./src/{self.code_name}")
         with open(f'src/{self.code_name}/parsed_{self.code_name}.ino', 'w') as pc:
@@ -283,13 +284,17 @@ class ESPOptions:
 
 if __name__ == '__main__':
     esp = ESPOptions("esp_test", "192.168.0.136", "esp8266:esp8266:nodemcuv2")
-    parsed_code = esp.template_code()
-    # build_result = esp.build()
-    # esp.check_external_libs()
-    # if build_result is True:
-    #     print("Build Successfully Completed")
-    # else:
-    #     print(build_result)
+    converted_code = esp.convert_code()
+    build_result = esp.build()
+    esp.check_external_libs()
+    if converted_code is True:
+        print("Code Successfully Converted")
+    else:
+        print(converted_code)
+    if build_result is True:
+        print("Build Successfully Completed")
+    else:
+        print(build_result)
 
     # update_result = esp.update()
     # if update_result == 0:
