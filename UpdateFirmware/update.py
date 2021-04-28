@@ -243,7 +243,7 @@ class ESPOptions:
             # print("Refactoring file...")
         else:
             os.mkdir(f"./src/{self.code_name}")
-        with open(f'src/{self.code_name}/parsed_{self.code_name}.ino', 'w') as pc:
+        with open(f'src/{self.code_name}/{self.code_name}.ino', 'w') as pc:
             pc.write(output_render)
 
         return output_render
