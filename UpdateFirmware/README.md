@@ -72,23 +72,23 @@ WifInfo                             esp8266:esp8266:wifinfo
 XinaBox CW01                        esp8266:esp8266:cw01     
 ```
 ### Install library dependencies
-####Update library index
+#### Update library index
 ```
 arduino-cli lib update-index
 ```
-####Search for library
+#### Search for library
 ```
 arduino-cli lib search ssd1306
 ```
-####Pick a library and install with
+#### Pick a library and install with
 ```
 arduino-cli lib install "Adafruit SSD1306"
 ```
-####Confirm it with
+#### Confirm it with
 ```
 arduino-cli lib list
 ```
-####Uninstalling lib
+#### Uninstalling lib
 ```
 arduino-cli lib uninstall "Adafruit SSD1306"
 ```
