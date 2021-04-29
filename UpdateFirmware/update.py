@@ -1,4 +1,5 @@
 from __future__ import print_function
+from jinja2 import Environment, FileSystemLoader
 import subprocess
 import socket
 import sys
@@ -221,7 +222,7 @@ class ESPOptions:
         # load library lines
         lines = {x.strip().split()[0]: x.strip().split()[1] for x in result.decode().split("\n")[1:] if x.strip()}
 
-        # compare installув and using libraries
+        # compare install and using libraries
         common_pairs = dict()
         for lib, version in lines.items():
             if lib in lines and version == libs.get(lib):
@@ -229,6 +230,23 @@ class ESPOptions:
         lib_names_compare = libs.items() - common_pairs.items()
         if lib_names_compare:
             raise Exception(f"Can't find name or version {', '.join([':'.join(lib) for lib in lib_names_compare])}")
+
+    def convert_code(self):
+        env = Environment(loader=FileSystemLoader(f'raw_src/{self.code_name}'))
+        template = env.get_template(f'{self.code_name}.ino')
+        with open('global_values.yml', 'r') as gv:
+            data = yaml.safe_load(gv.read())
+        output_render = template.render(**data)
+        if os.path.exists(f"./src/{self.code_name}"):
+            pass
+            # print("Directory already exists!")
+            # print("Refactoring file...")
+        else:
+            os.mkdir(f"./src/{self.code_name}")
+        with open(f'src/{self.code_name}/{self.code_name}.ino', 'w') as pc:
+            pc.write(output_render)
+
+        return output_render
 
     def build(self):
         try:
@@ -265,19 +283,22 @@ class ESPOptions:
 
 
 if __name__ == '__main__':
-    esp = ESPOptions("esp_test", "192.168.0.136", "esp8266:esp8266:nodemcuv2")
+    esp = ESPOptions("esp_test", "192.168.1.79", "esp8266:esp8266:nodemcuv2")
+    converted_code = esp.convert_code()
     build_result = esp.build()
     esp.check_external_libs()
+
     if build_result is True:
         print("Build Successfully Completed")
     else:
         print(build_result)
+
     update_result = esp.update()
     if update_result == 0:
-        print("Upgrade Successfully Completed")
+        print("Updade Successfully Completed")
     else:
         print("Update failed!")
-    # esp.update()
-    # ota = subprocess.Popen("./espota.py -i 192.168.0.136 -p 8266 -f bin/esp_test/esp_test.ino.bin", shell=True)
+    esp.update()
+    # ota = subprocess.Popen("./espota.py -i 192.168.1.79 -p 8266 -f bin/esp_test/esp_test.ino.bin", shell=True)
     # output, error = ota.communicate()
     # print(output)
