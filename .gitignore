@@ -1,5 +1,5 @@
 .idea
 venv/
 __pycache__
-UpdateFirmware/bin
-UpdateFirmware/arduino-cli
+IotKernel/update_firmware/bin
+IotKernel/update_firmware/arduino-cli

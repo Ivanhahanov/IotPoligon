@@ -36,7 +36,7 @@ def update_progress(progress):
         sys.stderr.write(text)
         sys.stderr.flush()
     else:
-        sys.stderr.write('.')
+        sys.stderr.write('')
         sys.stderr.flush()
 
 
