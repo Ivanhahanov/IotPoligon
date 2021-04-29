@@ -51,3 +51,6 @@ async def delete_device(device: Device):
     delete = CrudDevice(device.dict(by_alias=True))
     delete.delete_device()
     return DeviceManagement().load_devices(device.module)
+
+def check_device_exist():
+    pass

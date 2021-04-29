@@ -8,8 +8,34 @@ services:
     volumes:
     - ./IotKernel:/kernel/IotKernel
 
+  mqtt-listener:
+    build:
+      context: mqttListener
+
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+      - 8883:8883
+    environment:
+      - MOSQUITTO_USERNAME=mosquitto
+      - MOSQUITTO_PASSWORD=mosquitto
+    volumes:
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-logs:/mosquitto/logs
+      - mosquitto-conf:/mosquitto/config
+    restart: unless-stopped
+
+  redis:
+    image: "redis:alpine"
+
   pacs:
     build:
       context: Modules/pacs
     depends_on:
       - kernel
+
+volumes:
+  mosquitto-data:
+  mosquitto-logs:
+  mosquitto-conf:

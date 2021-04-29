@@ -2,3 +2,5 @@ fastapi
 uvicorn
 pytest
 requests
+paho-mqtt
+redis
