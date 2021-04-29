@@ -216,7 +216,7 @@ class ESPOptions:
         with open(external_libs_file) as f:
             libs = yaml.safe_load(f.read())[self.code_name]
 
-        libs_list_command = './arduino-cli lib list'
+        libs_list_command = 'arduino-cli lib list'
         result, error = self.exec_command(libs_list_command)
 
         # load library lines
@@ -253,7 +253,7 @@ class ESPOptions:
             self.check_board()
         except Exception as e:
             return e
-        arduino_build = f"./arduino-cli compile -b {self.board} " \
+        arduino_build = f"arduino-cli compile -b {self.board} " \
                         f"./src/{self.code_name}/ " \
                         f"--output-dir bin/{self.code_name} "
         result, error = self.exec_command(arduino_build)
@@ -262,7 +262,7 @@ class ESPOptions:
         return error.decode()
 
     def check_board(self):
-        check_board_command = f"./arduino-cli board listall {self.board}"
+        check_board_command = f"arduino-cli board listall {self.board}"
         result, error = self.exec_command(check_board_command)
         if result:
             lines = result.decode().split("\n")
