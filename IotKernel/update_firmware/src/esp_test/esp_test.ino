@@ -3,8 +3,8 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 
-const char* ssid = "Explabs";
-const char* password = "Huttka12";
+const char* ssid = "ssid";
+const char* password = "password";
 const char* mqtt_server_ip = "server_ip";
 const char* mqtt_user = "mqttuser";
 const char* mqtt_password = "mqttpass";
