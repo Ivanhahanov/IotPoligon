@@ -122,3 +122,9 @@ if update_result == 0:
 else:
     print("Update failed!")
 ```
+
+### Useful tool to watch serial monitor
+```
+sudo apt install -y screen
+screen /dev/ttyUSB0 115200
+```
