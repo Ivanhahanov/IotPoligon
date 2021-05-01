@@ -24,7 +24,7 @@ class Executor(DeviceManagement):
             return mqtt.get_data(self.module, self.device)
 
     def get_device_protocol(self):
-        return all_devices[self.module]['devices'][self.device]['protocol']
+        return all_devices[self.module].get('protocol')
 
     def check_command(self):
         module = all_devices[self.module]

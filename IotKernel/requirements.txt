@@ -4,3 +4,5 @@ pytest
 requests
 paho-mqtt
 redis
+Jinja2==2.11.3
+PyYaml
