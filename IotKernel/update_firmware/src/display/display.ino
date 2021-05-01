@@ -8,8 +8,8 @@
 #include <ArduinoOTA.h>
 
 #ifndef STASSID
-#define STASSID "Explabs"
-#define STAPSK  "Huttka12"
+#define STASSID "SSID"
+#define STAPSK  "PASS"
 #endif
 
 const char* ssid = STASSID;
