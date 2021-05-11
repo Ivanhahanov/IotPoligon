@@ -5,6 +5,7 @@ services:
       context: IotKernel
     ports:
     - 80:80
+    - 8266:8266
     volumes:
     - ./IotKernel:/kernel/IotKernel
 

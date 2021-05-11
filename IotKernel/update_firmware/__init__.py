@@ -11,9 +11,9 @@ class ESPOptions:
         self.esp_ip = esp_ip
         self.host_ip = "0.0.0.0"
         self.esp_port = 8266
-        self.host_port = random.randint(10000, 60000)
+        self.host_port = 8266
         self.auth = ""
-        self.image = f"bin/{code_name}/{code_name}.ino.bin"
+        self.image = f"/kernel/IotKernel/update_firmware/bin/{code_name}.bin"
         self.command = FLASH
         self.board = board
 
@@ -50,9 +50,9 @@ class ESPOptions:
             raise Exception(f"Can't find name or version {', '.join([':'.join(lib) for lib in lib_names_compare])}")
 
     def convert_code(self):
-        env = Environment(loader=FileSystemLoader(f'raw_src/{self.code_name}'))
+        env = Environment(loader=FileSystemLoader(f'/kernel/IotKernel/update_firmware/raw_src/{self.code_name}'))
         template = env.get_template(f'{self.code_name}.ino')
-        with open('global_values.yml', 'r') as gv:
+        with open('/kernel/IotKernel/update_firmware/global_values.yml', 'r') as gv:
             data = yaml.safe_load(gv.read())
         output_render = template.render(**data)
         if os.path.exists(f"/kernel/IotKernel/update_firmware/src/{self.code_name}"):
@@ -72,7 +72,7 @@ class ESPOptions:
         # except Exception as e:
         #     return str(e)
         arduino_build = f"arduino-cli compile -b {self.board} " \
-                        f"/kernel/IotKernel/update_firmware/src/{self.code_name}" \
+                        f"/kernel/IotKernel/update_firmware/src/{self.code_name}/" \
                         f" --output /kernel/IotKernel/update_firmware/bin/{self.code_name}"
         result, error = self.exec_command(arduino_build)
         print("build", result.decode(), error)

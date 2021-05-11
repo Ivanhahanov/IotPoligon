@@ -17,7 +17,6 @@ async def update(request: UpdateRequest):
     esp = ESPOptions(request.filename,
                      request.esp_ip,
                      request.board)
-    esp.convert_code()
     update_result = esp.update()
     if update_result != 0:
         raise HTTPException(status_code=400, detail="Update failed!")
@@ -29,6 +28,7 @@ async def build(request: UpdateRequest):
     esp = ESPOptions(request.filename,
                      request.esp_ip,
                      request.board)
+    esp.convert_code()
     build_result = esp.build()
     # esp.check_external_libs()
     if build_result is not True:
