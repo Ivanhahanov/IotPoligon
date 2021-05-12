@@ -1,9 +1,10 @@
-import subprocess
-import random
 from .update import serve, FLASH
 from jinja2 import Environment, FileSystemLoader
+from pathlib import Path
+import subprocess
 import os
 import yaml
+
 
 class ESPOptions:
     def __init__(self, code_name, esp_ip, board):
@@ -27,8 +28,9 @@ class ESPOptions:
                      self.command)
 
     def check_external_libs(self):
-        external_libs_file = os.path.join('/kernel/IotKernel/update_firmware/src', self.code_name, "external_libs.yml")
-        if not os.path.isfile(external_libs_file):
+        #  external_libs_file = os.path.join('/kernel/IotKernel/update_firmware/src', self.code_name, "external_libs.yml")
+        external_libs_file = Path.cwd() / 'src' / self.code_name / 'external_libs.yml'
+        if not external_libs_file.exists():
             raise Exception(f"Can't find {external_libs_file}")
 
         with open(external_libs_file) as f:
