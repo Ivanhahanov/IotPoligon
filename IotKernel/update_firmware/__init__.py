@@ -17,6 +17,7 @@ class ESPOptions:
         self.image = f"/kernel/IotKernel/update_firmware/bin/{code_name}.bin"
         self.command = FLASH
         self.board = board
+        self.path = Path('/kernel/IotKernel/update_firmware')
 
     def update(self):
         return serve(self.esp_ip,
@@ -29,7 +30,7 @@ class ESPOptions:
 
     def check_external_libs(self):
         #  external_libs_file = os.path.join('/kernel/IotKernel/update_firmware/src', self.code_name, "external_libs.yml")
-        external_libs_file = Path.cwd() / 'src' / self.code_name / 'external_libs.yml'
+        external_libs_file = self.path.joinpath('src', self.code_name, 'external_libs.yml')
         if not external_libs_file.exists():
             raise Exception(f"Can't find {external_libs_file}")
 
@@ -52,19 +53,25 @@ class ESPOptions:
             raise Exception(f"Can't find name or version {', '.join([':'.join(lib) for lib in lib_names_compare])}")
 
     def convert_code(self):
-        env = Environment(loader=FileSystemLoader(f'/kernel/IotKernel/update_firmware/raw_src/{self.code_name}'))
+        #  env = Environment(loader=FileSystemLoader(f'/kernel/IotKernel/update_firmware/raw_src/{self.code_name}'))
+        env = Environment(loader=FileSystemLoader(self.path.joinpath('raw_src', self.code_name)))
         template = env.get_template(f'{self.code_name}.ino')
-        with open('/kernel/IotKernel/update_firmware/global_values.yml', 'r') as gv:
+        with open(self.path.joinpath('global_values.yml'), 'r') as gv:
             data = yaml.safe_load(gv.read())
         output_render = template.render(**data)
-        if os.path.exists(f"/kernel/IotKernel/update_firmware/src/{self.code_name}"):
+        #  if os.path.exists(f"/kernel/IotKernel/update_firmware/src/{self.code_name}"):
+        if (self.path.joinpath('src', self.code_name)).exists():
             pass
             # print("Directory already exists!")
             # print("Refactoring file...")
         else:
-            os.mkdir(f"/kernel/IotKernel/update_firmware/src/{self.code_name}")
-        with open(f'/kernel/IotKernel/update_firmware/src/{self.code_name}/{self.code_name}.ino', 'w') as pc:
+            #  os.mkdir(f"/kernel/IotKernel/update_firmware/src/{self.code_name}")
+            Path.mkdir(self.path.joinpath('src') / self.code_name)
+
+        with open(self.path.joinpath('src', self.code_name, f'{self.code_name}.ino'), 'w') as pc:
             pc.write(output_render)
+        #  with open(f'/kernel/IotKernel/update_firmware/src/{self.code_name}/{self.code_name}.ino', 'w') as pc:
+        #  pc.write(output_render)
 
         return output_render
 
