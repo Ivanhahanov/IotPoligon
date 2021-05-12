@@ -126,6 +126,6 @@ if __name__ == '__main__':
 
     update_result = esp.update()
     if update_result == 0:
-        print("Updade Successfully Completed")
+        print("Update Successfully Completed")
     else:
         print("Update failed!")
