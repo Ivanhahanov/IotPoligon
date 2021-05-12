@@ -14,10 +14,11 @@ class ESPOptions:
         self.esp_port = 8266
         self.host_port = 8266
         self.auth = ""
-        self.image = f"/kernel/IotKernel/update_firmware/bin/{code_name}.bin"
+        # self.image = f"/kernel/IotKernel/update_firmware/bin/{code_name}.bin"
         self.command = FLASH
         self.board = board
         self.path = Path('/kernel/IotKernel/update_firmware')
+        self.image = self.path.joinpath('bin', f'{code_name}.bin')
 
     def update(self):
         return serve(self.esp_ip,
@@ -66,7 +67,7 @@ class ESPOptions:
             # print("Refactoring file...")
         else:
             #  os.mkdir(f"/kernel/IotKernel/update_firmware/src/{self.code_name}")
-            Path.mkdir(self.path.joinpath('src') / self.code_name)
+            (self.path.joinpath('src') / self.code_name).mkdir()
 
         with open(self.path.joinpath('src', self.code_name, f'{self.code_name}.ino'), 'w') as pc:
             pc.write(output_render)
