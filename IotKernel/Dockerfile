@@ -6,7 +6,7 @@ RUN wget -O /tmp/cli.tar.bz2 \
     bunzip2 /tmp/cli.tar.bz2 && \
     tar -xvf /tmp/cli.tar && \
     mv /tmp/arduino-cli* /usr/bin/arduino-cli
-COPY arduino/arduino-cli.yaml /root/.arduino15/arduino-cli.yaml
+COPY update_firmware/arduino/arduino-cli.yaml /root/.arduino15/arduino-cli.yaml
 RUN arduino-cli core update-index
 RUN arduino-cli core install esp8266:esp8266
 WORKDIR kernel
