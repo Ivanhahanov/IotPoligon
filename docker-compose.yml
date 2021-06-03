@@ -1,32 +1,38 @@
-version: "3.7"
+version: "3.9"
 services:
   kernel:
     build:
       context: IotKernel
     ports:
-    - 80:80
-    - 8266:8266
+      - 80:80
+      - 8266:8266
     volumes:
-    - ./IotKernel:/kernel/IotKernel
+      - ./IotKernel:/kernel/IotKernel
+
+
 
   mqtt-listener:
     build:
       context: mqttListener
 
   mosquitto:
-    image: eclipse-mosquitto
+    build:
+      context: mosquitto
+      dockerfile: Dockerfile
+      args:
+        - MOSQUITTO_VERSION=${MOSQUITTO_VERSION:-latest}
+    environment:
+      - MOSQUITTO_USERNAME=${MOSQUITTO_USERNAME}
+      - MOSQUITTO_PASSWORD=${MOSQUITTO_PASSWORD}
+    image: eclipse-mosquitto:${MOSQUITTO_VERSION:-latest}
+    container_name: eclipse-mosquitto
+    restart: always
+    volumes:
+      - ./data:/mosquitto/data
+      - ./log:/mosquitto/log
     ports:
       - 1883:1883
-      - 8883:8883
-    environment:
-      - MOSQUITTO_USERNAME=mosquitto
-      - MOSQUITTO_PASSWORD=mosquitto
-    volumes:
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - mosquitto-data:/mosquitto/data
-      - mosquitto-logs:/mosquitto/logs
-      - mosquitto-conf:/mosquitto/config
-    restart: unless-stopped
+
 
   redis:
     image: "redis:alpine"
@@ -41,7 +47,3 @@ services:
     depends_on:
       - kernel
 
-volumes:
-  mosquitto-data:
-  mosquitto-logs:
-  mosquitto-conf:
