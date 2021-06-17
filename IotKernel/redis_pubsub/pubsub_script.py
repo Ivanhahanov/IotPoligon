@@ -1,16 +1,17 @@
+from redis import Redis
+import datetime
 import time
-from redis import StrictRedis
 import logging
 logging.basicConfig(level=logging.INFO)
-redis = StrictRedis(host='redis')
 
-pubsub = redis.pubsub()
-pubsub.psubscribe('__keyspace@0__:*')
-
-logging.info("Server started")
+redis = Redis(host='redis', port=6379, db=0)
+# Subscribing to events matching pattern "__key*__:*"
+p = redis.pubsub()
+p.psubscribe('__key*__:*')
+logging.info('Starting message loop')
 while True:
-    message = pubsub.get_message()
+    message = p.get_message()
     if message:
-        print(message)
+        logging.info(datetime.datetime.now(), message)
     else:
-        time.sleep(0.01)
+        time.sleep(0.1)
