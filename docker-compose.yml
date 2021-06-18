@@ -35,11 +35,17 @@ services:
 
 
   redis:
-    image: "redis:alpine"
+    image: redis:alpine
+
+  redis-cli:
+    image: redis:alpine
+    links:
+      - redis
+    command: redis-cli -h redis config set notify-keyspace-events KEA
 
   redis_pubsub:
     build:
-      context: IotKernel/redis_pubsub
+      context: redis_pubsub
 
   pacs:
     build:

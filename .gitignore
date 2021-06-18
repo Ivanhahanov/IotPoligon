@@ -5,3 +5,4 @@ IotKernel/update_firmware/bin
 IotKernel/update_firmware/arduino-cli
 data
 log
+redis-data/
