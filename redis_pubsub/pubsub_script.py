@@ -7,9 +7,14 @@ logging.basicConfig(level=logging.INFO)
 
 with open('devices.yaml', 'r') as file:
     data = yaml.safe_load(file.read())
-    #logging.info(data)
+data = list(data)
 
-topics = [row["topic"] for row in data]
+topics = []
+for t in data:
+    topics.append(t)
+print(topics)
+# topics = [row["topic"] for row in data]
+
 redis = Redis(host='redis', port=6379, db=0)
 # Subscribing to events matching pattern "__key*__:*"
 p = redis.pubsub()
