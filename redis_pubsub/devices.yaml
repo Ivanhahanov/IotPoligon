@@ -1,0 +1,15 @@
+lamp:
+  topic: main/lamp
+  icon: '?'
+temp:
+  topic: main/temp
+  icon: '#'
+reader:
+  topic: pacs/reader
+  icon: '%'
+door:
+  topic: pacs/door
+  icon: '$'
+pir:
+  topic: pacs/pir
+  icon: '@'
