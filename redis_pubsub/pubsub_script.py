@@ -25,7 +25,7 @@ while True:
         if topic in topics:
             logging.info(f"{topic}: {redis.get(topic).decode()}")
             rendered_topic = topic
-            logging.info(rendered_topic)
+            # logging.info(rendered_topic)
             if rendered_topic in topics:
                 command_dump = redis.get(topic).decode()
                 topic_dump = json.dumps(rendered_topic)
