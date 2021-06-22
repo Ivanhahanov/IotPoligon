@@ -2,6 +2,7 @@ from redis import Redis
 import time
 import logging
 import yaml
+import json
 
 logging.basicConfig(level=logging.INFO)
 
@@ -26,6 +27,8 @@ while True:
             rendered_topic = topic
             logging.info(rendered_topic)
             if rendered_topic in topics:
-                pass
+                command_dump = redis.get(topic).decode()
+                topic_dump = json.dumps(rendered_topic)
+                logging.info([topic_dump, command_dump])
     else:
         time.sleep(0.1)
