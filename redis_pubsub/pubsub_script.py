@@ -10,7 +10,7 @@ with open('devices.yaml', 'r') as file:
     data = yaml.safe_load(file.read())
 
 topics = [row["topic"] for row in data.values()]
-
+icons = [row["icon"] for row in data.values()]
 redis = Redis(host='redis', port=6379, db=0)
 # Subscribing to events matching pattern "__key*__:*"
 p = redis.pubsub()
@@ -27,8 +27,11 @@ while True:
             rendered_topic = topic
             # logging.info(rendered_topic)
             if rendered_topic in topics:
+                topic_pos = topics.index(rendered_topic)
+                icon = icons[topic_pos]
+                icon_dump = json.dumps(icon)
                 command_dump = redis.get(topic).decode()
                 topic_dump = json.dumps(rendered_topic)
-                logging.info([topic_dump, command_dump])
+                logging.info([topic_dump, command_dump, icon])
     else:
         time.sleep(0.1)
