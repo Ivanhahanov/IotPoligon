@@ -32,6 +32,6 @@ while True:
                 icon_dump = json.dumps(icon)
                 command_dump = redis.get(topic).decode()
                 topic_dump = json.dumps(rendered_topic)
-                logging.info([topic_dump, command_dump, icon])
+                payload_dump = json.dumps([topic_dump, command_dump, icon_dump])
     else:
         time.sleep(0.1)
