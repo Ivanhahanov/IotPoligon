@@ -1,0 +1,1 @@
+from .translate import upload_translate_to_redis

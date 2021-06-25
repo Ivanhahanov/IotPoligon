@@ -1,15 +1,15 @@
 lamp:
   topic: main/lamp
-  icon: '?'
+  icon: lamp
 temp:
   topic: main/temp
-  icon: '#'
+  icon: 0b00000,0b01110,0b10001,0b10001,0b10001,0b01010,0b01110,0b01110
 reader:
   topic: pacs/reader
   icon: '%'
 door:
   topic: pacs/door
-  icon: '$'
+  icon: door
 pir:
   topic: pacs/pir
   icon: '@'
