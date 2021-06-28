@@ -11,6 +11,10 @@ all_devices = {
             "temp": {
                 "description": "table lamp",
                 "protocol": "mqtt",
+                "available_commands": ["get"]},
+            "display": {
+                "description": "interior display",
+                "protocol": "mqtt",
                 "available_commands": ["get"]}
         },
     },

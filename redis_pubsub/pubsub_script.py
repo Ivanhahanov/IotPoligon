@@ -7,7 +7,7 @@ import paho.mqtt.client as mqtt
 
 # Connection to mosquitto
 mqtt_client = mqtt.Client('display')
-mqtt_client.connect('mosquitto', port=1883)
+mqtt_client.connect('0.0.0.0', port=1883)
 logging.basicConfig(level=logging.INFO)
 redis = Redis(host='redis', port=6379, db=0)
 with open('devices.yaml', 'r') as file:
@@ -37,10 +37,7 @@ while True:
         # logging.info(json.dumps(data))
         json_dump = json.dumps(data)
         logging.info(json_dump)
-        # Publish json_dump to mosquitto
-        if mqtt_client.publish("main/display", json_dump):
-            logging.info("Message published")
-        else:
-            logging.info("Publishing error")
+        # Publishing data to mosquitto
+        mqtt_client.publish("main/display", json_dump)
     else:
         time.sleep(0.1)
