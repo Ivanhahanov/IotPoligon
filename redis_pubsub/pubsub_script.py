@@ -6,8 +6,9 @@ import json
 import paho.mqtt.client as mqtt
 
 # Connection to mosquitto
-mqtt_client = mqtt.Client('display')
-mqtt_client.connect('0.0.0.0', port=1883)
+mqtt_client = mqtt.Client()
+mqtt_client.username_pw_set(username='username', password='password')
+mqtt_client.connect('192.168.0.165', port=1883)
 logging.basicConfig(level=logging.INFO)
 redis = Redis(host='redis', port=6379, db=0)
 with open('devices.yaml', 'r') as file:
